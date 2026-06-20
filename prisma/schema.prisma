@@ -1,0 +1,243 @@
+// FitNexus Prisma schema
+// Datasource: MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MEMBER
+  COACH
+  ADMIN
+}
+
+enum Goal {
+  FAT_LOSS
+  MUSCLE_GAIN
+  STRENGTH_GAIN
+  GENERAL_FITNESS
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum SubscriptionStatus {
+  INACTIVE
+  ACTIVE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  mobile       String
+  role         Role     @default(MEMBER)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  memberProfile MemberProfile?
+  coachProfile  CoachProfile?
+
+  // As a member
+  purchases     Purchase[]      @relation("MemberPurchases")
+  workoutLogs   WorkoutLog[]
+  progress      ProgressEntry[]
+  memberWorkoutPlans WorkoutPlan[] @relation("MemberWorkoutPlans")
+  memberMealPlans    MealPlan[]    @relation("MemberMealPlans")
+}
+
+model MemberProfile {
+  id     String  @id @default(cuid())
+  userId String  @unique
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  height Float // cm
+  weight Float // kg
+  age    Int
+  gender Gender
+  goal   Goal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CoachProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bio            String  @db.Text
+  experience     String  @db.Text
+  certifications String  @db.Text
+  specialties    String  @db.Text
+
+  subscriptionStatus SubscriptionStatus @default(INACTIVE)
+  subscriptionExpiry DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  packages      Package[]
+  subscriptions CoachSubscription[]
+  purchases     Purchase[]    @relation("CoachPurchases")
+  workoutPlans  WorkoutPlan[] @relation("CoachWorkoutPlans")
+  mealPlans     MealPlan[]    @relation("CoachMealPlans")
+}
+
+model CoachSubscription {
+  id      String       @id @default(cuid())
+  coachId String
+  coach   CoachProfile @relation(fields: [coachId], references: [id], onDelete: Cascade)
+
+  amount      Float
+  status      PaymentStatus @default(PENDING)
+  periodStart DateTime      @default(now())
+  periodEnd   DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([coachId])
+}
+
+model Package {
+  id      String       @id @default(cuid())
+  coachId String
+  coach   CoachProfile @relation(fields: [coachId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String  @db.Text
+  price       Float
+  durationDays Int
+  active      Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  purchases Purchase[]
+
+  @@index([coachId])
+}
+
+model Purchase {
+  id        String @id @default(cuid())
+  memberId  String
+  member    User   @relation("MemberPurchases", fields: [memberId], references: [id], onDelete: Cascade)
+  packageId String
+  package   Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  coachId   String
+  coach     CoachProfile @relation("CoachPurchases", fields: [coachId], references: [id], onDelete: Cascade)
+
+  amount      Float
+  status      PaymentStatus @default(PENDING)
+  purchasedAt DateTime      @default(now())
+
+  @@index([memberId])
+  @@index([coachId])
+  @@index([packageId])
+}
+
+model WorkoutPlan {
+  id       String @id @default(cuid())
+  memberId String
+  member   User   @relation("MemberWorkoutPlans", fields: [memberId], references: [id], onDelete: Cascade)
+  coachId  String
+  coach    CoachProfile @relation("CoachWorkoutPlans", fields: [coachId], references: [id], onDelete: Cascade)
+
+  title String
+  notes String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items WorkoutPlanItem[]
+
+  @@index([memberId])
+  @@index([coachId])
+}
+
+model WorkoutPlanItem {
+  id     String @id @default(cuid())
+  planId String
+  plan   WorkoutPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  day      String
+  exercise String
+  sets     Int
+  reps     Int
+  weight   Float?
+
+  @@index([planId])
+}
+
+model MealPlan {
+  id       String @id @default(cuid())
+  memberId String
+  member   User   @relation("MemberMealPlans", fields: [memberId], references: [id], onDelete: Cascade)
+  coachId  String
+  coach    CoachProfile @relation("CoachMealPlans", fields: [coachId], references: [id], onDelete: Cascade)
+
+  title String
+  notes String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items MealPlanItem[]
+
+  @@index([memberId])
+  @@index([coachId])
+}
+
+model MealPlanItem {
+  id     String @id @default(cuid())
+  planId String
+  plan   MealPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  meal     String
+  items    String @db.Text
+  calories Int
+  time     String
+
+  @@index([planId])
+}
+
+model WorkoutLog {
+  id       String @id @default(cuid())
+  memberId String
+  member   User   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  exercise String
+  sets     Int
+  reps     Int
+  weight   Float?
+  date     DateTime @default(now())
+
+  @@index([memberId])
+}
+
+model ProgressEntry {
+  id       String @id @default(cuid())
+  memberId String
+  member   User   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  weight  Float
+  bodyFat Float?
+  date    DateTime @default(now())
+
+  @@index([memberId])
+}

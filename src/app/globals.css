@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f6f8;
+  --foreground: #0c1222;
+  --card: #ffffff;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, 0.08);
+  --brand: #10b981;
+  --brand-dark: #059669;
+  --brand-light: #ecfdf5;
+  --brand-foreground: #ffffff;
+  --sidebar: #ffffff;
+  --accent: #6366f1;
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-light: var(--brand-light);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Subtle mesh background for marketing & auth pages */
+.bg-mesh {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(at 20% 20%, rgba(16, 185, 129, 0.12) 0, transparent 50%),
+    radial-gradient(at 80% 10%, rgba(99, 102, 241, 0.1) 0, transparent 45%),
+    radial-gradient(at 60% 80%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+}
+
+/* Dashboard content area */
+.bg-dashboard {
+  background-color: var(--background);
+  background-image: radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.04) 0, transparent 40%);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.5s ease-out 0.1s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.5s ease-out 0.2s both;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fade-up 0.5s ease-out 0.3s both;
+}
