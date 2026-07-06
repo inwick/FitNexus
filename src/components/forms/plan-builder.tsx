@@ -323,7 +323,7 @@ export function PlanBuilder({
         </Button>
         {state.success ? (
           <>
-            <span className="text-sm text-green-700">{state.success}</span>
+            <span className="text-sm text-green-700 dark:text-green-400">{state.success}</span>
             <a
               href={whatsappLink(memberMobile, notifyMessage)}
               target="_blank"

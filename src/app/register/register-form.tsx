@@ -35,16 +35,16 @@ export function RegisterForm({
       title="Create your account"
       subtitle="Join FitNexus in under a minute."
     >
-      <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl bg-black/[0.03] p-1">
+      <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl bg-foreground/[0.05] p-1">
         {(["member", "coach"] as const).map((r) => (
           <button
             key={r}
             type="button"
             onClick={() => setRole(r)}
             className={cn(
-              "rounded-lg py-2.5 text-sm font-medium transition-all duration-200",
+              "rounded-lg py-2.5 text-sm font-semibold transition-all duration-200",
               role === r
-                ? "bg-white text-foreground shadow-sm ring-1 ring-border"
+                ? "bg-card text-foreground shadow-sm ring-1 ring-border"
                 : "text-muted hover:text-foreground"
             )}
           >
@@ -119,7 +119,7 @@ export function RegisterForm({
 
       <p className="mt-6 text-center text-sm text-muted">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-brand hover:text-brand-dark">
+        <Link href="/login" className="font-semibold text-brand-dark hover:opacity-80 dark:text-brand">
           Log in
         </Link>
       </p>

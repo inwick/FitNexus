@@ -63,7 +63,7 @@ export function CoachProfileForm({
         </p>
       ) : null}
       {state.success ? (
-        <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+        <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 dark:bg-green-500/10 dark:text-green-400">
           {state.success}
         </p>
       ) : null}

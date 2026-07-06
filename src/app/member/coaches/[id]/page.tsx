@@ -76,7 +76,7 @@ export default async function CoachDetailPage({
                   <p className="font-semibold">{pkg.title}</p>
                   <p className="text-xs text-muted">{pkg.durationDays} days</p>
                 </div>
-                <span className="font-bold text-brand">
+                <span className="font-display font-bold text-brand-dark dark:text-brand">
                   {formatCurrency(pkg.price)}
                 </span>
               </div>
