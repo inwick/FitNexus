@@ -35,7 +35,7 @@ export default function LoginPage() {
         </Button>
       </form>
 
-      <div className="mt-6 rounded-xl border border-border bg-black/[0.02] p-4">
+      <div className="mt-6 rounded-xl border border-border bg-foreground/[0.03] p-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted">
           Demo accounts
         </p>
@@ -54,7 +54,7 @@ export default function LoginPage() {
 
       <p className="mt-6 text-center text-sm text-muted">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="font-semibold text-brand hover:text-brand-dark">
+        <Link href="/register" className="font-semibold text-brand-dark hover:opacity-80 dark:text-brand">
           Sign up free
         </Link>
       </p>

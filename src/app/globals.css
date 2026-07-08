@@ -1,61 +1,159 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #f4f6f8;
-  --foreground: #0c1222;
+  /* Neutral base — warm linen light theme */
+  --background: #f7f8f4;
+  --background-elevated: #ffffff;
+  --foreground: #0c0f0a;
   --card: #ffffff;
-  --muted: #64748b;
-  --border: rgba(15, 23, 42, 0.08);
-  --brand: #10b981;
-  --brand-dark: #059669;
-  --brand-light: #ecfdf5;
-  --brand-foreground: #ffffff;
+  --card-elevated: #ffffff;
+  --muted: #5b6560;
+  --muted-foreground: #6b7671;
+  --border: rgba(12, 15, 10, 0.09);
   --sidebar: #ffffff;
-  --accent: #6366f1;
+
+  /* Volt — energetic electric lime brand */
+  --brand: #a3e635;
+  --brand-strong: #c7fb4f;
+  --brand-dark: #65a30d;
+  --brand-light: #f0fad6;
+  --brand-foreground: #0c0f0a;
+
+  /* Flare — warm intensity accent (use sparingly) */
+  --flare: #ff6a2b;
+  --flare-light: #fff0e8;
+
+  /* Data-viz cool tiers */
+  --accent: #8b5cf6;
+  --cyan: #22d3ee;
+
+  --ring: rgba(101, 163, 13, 0.35);
   --radius: 1rem;
+}
+
+.dark {
+  /* Carbon charcoal dark theme */
+  --background: #0b0d0a;
+  --background-elevated: #12150f;
+  --foreground: #f2f5ef;
+  --card: #151a13;
+  --card-elevated: #1c2119;
+  --muted: #9aa69b;
+  --muted-foreground: #8b978c;
+  --border: rgba(255, 255, 255, 0.09);
+  --sidebar: #101309;
+
+  --brand: #c7fb4f;
+  --brand-strong: #d4ff5c;
+  --brand-dark: #a3e635;
+  --brand-light: rgba(199, 251, 79, 0.12);
+  --brand-foreground: #0b0d0a;
+
+  --flare: #ff7c44;
+  --flare-light: rgba(255, 106, 43, 0.14);
+
+  --accent: #a78bfa;
+  --cyan: #34d5ec;
+
+  --ring: rgba(199, 251, 79, 0.4);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-elevated: var(--card-elevated);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);
   --color-brand-foreground: var(--brand-foreground);
-  --color-sidebar: var(--sidebar);
+  --color-flare: var(--flare);
+  --color-flare-light: var(--flare-light);
   --color-accent: var(--accent);
+  --color-cyan: var(--cyan);
+  --color-sidebar: var(--sidebar);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
+}
+
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle mesh background for marketing & auth pages */
+::selection {
+  background: var(--brand);
+  color: var(--brand-foreground);
+}
+
+/* Energetic mesh background for marketing & auth pages */
 .bg-mesh {
   background-color: var(--background);
   background-image:
-    radial-gradient(at 20% 20%, rgba(16, 185, 129, 0.12) 0, transparent 50%),
-    radial-gradient(at 80% 10%, rgba(99, 102, 241, 0.1) 0, transparent 45%),
-    radial-gradient(at 60% 80%, rgba(16, 185, 129, 0.08) 0, transparent 50%);
+    radial-gradient(at 15% 15%, rgba(163, 230, 53, 0.16) 0, transparent 45%),
+    radial-gradient(at 85% 8%, rgba(139, 92, 246, 0.1) 0, transparent 42%),
+    radial-gradient(at 70% 85%, rgba(34, 211, 238, 0.08) 0, transparent 48%);
+}
+
+.dark .bg-mesh {
+  background-image:
+    radial-gradient(at 15% 12%, rgba(199, 251, 79, 0.1) 0, transparent 42%),
+    radial-gradient(at 88% 6%, rgba(139, 92, 246, 0.12) 0, transparent 40%),
+    radial-gradient(at 72% 88%, rgba(34, 211, 238, 0.07) 0, transparent 46%);
+}
+
+/* Subtle grid overlay */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
 }
 
 /* Dashboard content area */
 .bg-dashboard {
   background-color: var(--background);
-  background-image: radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.04) 0, transparent 40%);
+  background-image: radial-gradient(at 100% 0%, rgba(163, 230, 53, 0.06) 0, transparent 40%);
 }
 
+.dark .bg-dashboard {
+  background-image: radial-gradient(at 100% 0%, rgba(199, 251, 79, 0.05) 0, transparent 42%);
+}
+
+/* Volt glow utilities */
+.glow-brand {
+  box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.2), 0 8px 30px -8px rgba(163, 230, 53, 0.45);
+}
+
+.dark .glow-brand {
+  box-shadow: 0 0 0 1px rgba(199, 251, 79, 0.25), 0 10px 40px -10px rgba(199, 251, 79, 0.4);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(199, 251, 79, 0.35);
+}
+
+/* Animations */
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -77,4 +175,56 @@ body {
 
 .animate-fade-up-delay-3 {
   animation: fade-up 0.5s ease-out 0.3s both;
+}
+
+.animate-fade-up-delay-4 {
+  animation: fade-up 0.5s ease-out 0.4s both;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

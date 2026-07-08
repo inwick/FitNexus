@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const fieldBase =
-  "w-full rounded-xl border border-border bg-white px-4 py-2.5 text-sm text-foreground transition-all placeholder:text-slate-400 hover:border-brand/20 focus-visible:border-brand/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/10";
+  "w-full rounded-xl border border-border bg-background-elevated px-4 py-2.5 text-sm text-foreground transition-all placeholder:text-muted/60 hover:border-brand/30 focus-visible:border-brand/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/15";
 
 export function Label({
   className,
@@ -43,7 +43,7 @@ export const Select = React.forwardRef<
   return (
     <select
       ref={ref}
-      className={cn(fieldBase, "cursor-pointer bg-white", className)}
+      className={cn(fieldBase, "cursor-pointer", className)}
       {...props}
     />
   );
@@ -78,8 +78,8 @@ export function Alert({
       className={cn(
         "rounded-xl px-4 py-2.5 text-sm",
         variant === "error"
-          ? "border border-red-100 bg-red-50 text-red-700"
-          : "border border-emerald-100 bg-emerald-50 text-emerald-700"
+          ? "border border-red-200 bg-red-50 text-red-700 dark:border-red-500/25 dark:bg-red-500/10 dark:text-red-300"
+          : "border border-brand/30 bg-brand-light text-brand-dark dark:text-brand"
       )}
     >
       {children}

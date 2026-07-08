@@ -38,6 +38,13 @@ export function LineChart({
     padding.top + innerH - ((v - min) / range) * innerH;
 
   const points = data.map((d, i) => `${x(i)},${y(d.value)}`).join(" ");
+  const baseline = padding.top + innerH;
+  const areaPath =
+    data.length > 1
+      ? `M ${x(0)},${baseline} L ${data
+          .map((d, i) => `${x(i)},${y(d.value)}`)
+          .join(" L ")} L ${x(data.length - 1)},${baseline} Z`
+      : "";
 
   return (
     <svg
@@ -46,14 +53,27 @@ export function LineChart({
       role="img"
       aria-label="Trend chart"
     >
+      <defs>
+        <linearGradient id="voltArea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.32" />
+          <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
       <line
         x1={padding.left}
-        y1={padding.top + innerH}
+        y1={baseline}
         x2={width - padding.right}
-        y2={padding.top + innerH}
-        stroke="#e2e8f0"
+        y2={baseline}
+        stroke="var(--border)"
       />
-      <text x={padding.left - 6} y={y(max)} textAnchor="end" fontSize="10" fill="#64748b">
+      <text
+        x={padding.left - 6}
+        y={y(max)}
+        textAnchor="end"
+        fontSize="10"
+        fill="var(--muted)"
+      >
         {max}
         {unit}
       </text>
@@ -62,16 +82,18 @@ export function LineChart({
         y={y(min) + 3}
         textAnchor="end"
         fontSize="10"
-        fill="#64748b"
+        fill="var(--muted)"
       >
         {min}
         {unit}
       </text>
 
+      {areaPath && <path d={areaPath} fill="url(#voltArea)" />}
+
       {data.length > 1 && (
         <polyline
           fill="none"
-          stroke="#10b981"
+          stroke="var(--brand)"
           strokeWidth="2.5"
           strokeLinejoin="round"
           strokeLinecap="round"
@@ -81,13 +103,20 @@ export function LineChart({
 
       {data.map((d, i) => (
         <g key={i}>
-          <circle cx={x(i)} cy={y(d.value)} r="3.5" fill="#10b981" />
+          <circle
+            cx={x(i)}
+            cy={y(d.value)}
+            r="4"
+            fill="var(--brand)"
+            stroke="var(--card)"
+            strokeWidth="1.5"
+          />
           <text
             x={x(i)}
             y={height - 8}
             textAnchor="middle"
             fontSize="9"
-            fill="#64748b"
+            fill="var(--muted)"
           >
             {d.label}
           </text>

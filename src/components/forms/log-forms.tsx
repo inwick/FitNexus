@@ -15,7 +15,7 @@ function Message({ state }: { state: ActionResult }) {
   if (state.error)
     return <p className="text-sm text-red-600">{state.error}</p>;
   if (state.success)
-    return <p className="text-sm text-green-700">{state.success}</p>;
+    return <p className="text-sm text-green-700 dark:text-green-400">{state.success}</p>;
   return null;
 }
 

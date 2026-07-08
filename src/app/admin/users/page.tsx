@@ -53,8 +53,8 @@ export default async function AdminUsersPage({
               href={f.value ? `/admin/users?role=${f.value}` : "/admin/users"}
               className={
                 active
-                  ? "rounded-lg bg-brand px-3 py-1.5 text-sm font-medium text-brand-foreground"
-                  : "rounded-lg border border-border bg-white px-3 py-1.5 text-sm font-medium text-muted hover:bg-slate-50"
+                  ? "rounded-lg bg-brand px-3 py-1.5 text-sm font-semibold text-brand-foreground"
+                  : "rounded-lg border border-border bg-card px-3 py-1.5 text-sm font-medium text-muted hover:border-brand/40 hover:text-foreground"
               }
             >
               {f.label}
@@ -80,7 +80,7 @@ export default async function AdminUsersPage({
             </thead>
             <tbody className="divide-y divide-border">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-50">
+                <tr key={u.id} className="transition-colors hover:bg-foreground/[0.03]">
                   <td className="px-4 py-3 font-medium">{u.name}</td>
                   <td className="px-4 py-3 text-muted">{u.email}</td>
                   <td className="px-4 py-3">

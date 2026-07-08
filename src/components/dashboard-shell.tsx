@@ -2,6 +2,7 @@ import { NavLink } from "@/components/nav-link";
 import { SignOutButton } from "@/components/sign-out-button";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export type NavItem = { href: string; label: string; icon?: string };
 
@@ -45,8 +46,8 @@ export function DashboardShell({
         </nav>
 
         <div className="border-t border-border p-4">
-          <div className="flex items-center gap-3 rounded-xl bg-black/[0.02] p-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-dark text-xs font-bold text-white">
+          <div className="flex items-center gap-3 rounded-xl bg-foreground/[0.03] p-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-strong to-brand-dark text-xs font-bold text-brand-foreground">
               {initials}
             </div>
             <div className="min-w-0 flex-1">
@@ -65,12 +66,13 @@ export function DashboardShell({
             <Logo href={brandHref} size="sm" />
           </div>
           <div className="hidden md:block">
-            <Badge color="indigo">{roleLabel}</Badge>
+            <Badge color="green">{roleLabel}</Badge>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden text-right sm:block">
               <p className="text-sm font-semibold">{userName}</p>
             </div>
+            <ThemeToggle />
             <SignOutButton />
           </div>
         </header>
@@ -107,9 +109,13 @@ export function PageHeader({
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">{title}</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
+          {title}
+        </h1>
         {description ? (
-          <p className="mt-1.5 text-sm leading-relaxed text-muted">{description}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted">
+            {description}
+          </p>
         ) : null}
       </div>
       {action}

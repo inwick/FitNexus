@@ -22,17 +22,22 @@ export function NavLink({
     <Link
       href={href}
       className={cn(
-        "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+        "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
         active
-          ? "bg-brand-light text-brand-dark shadow-sm"
-          : "text-muted hover:bg-black/[0.03] hover:text-foreground"
+          ? "bg-brand-light text-brand-dark dark:text-foreground"
+          : "text-muted hover:bg-foreground/5 hover:text-foreground"
       )}
     >
+      {active ? (
+        <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-brand" />
+      ) : null}
       {Icon ? (
         <Icon
           className={cn(
             "h-5 w-5 shrink-0 transition-colors",
-            active ? "text-brand" : "text-muted group-hover:text-foreground"
+            active
+              ? "text-brand-dark dark:text-brand"
+              : "text-muted group-hover:text-foreground"
           )}
         />
       ) : null}

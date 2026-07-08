@@ -62,11 +62,11 @@ export default async function CoachClientsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {clients.map((c) => (
-                <tr key={c.memberId} className="hover:bg-slate-50">
+                <tr key={c.memberId} className="transition-colors hover:bg-foreground/[0.03]">
                   <td className="px-4 py-3">
                     <Link
                       href={`/coach/clients/${c.memberId}`}
-                      className="font-medium text-brand hover:underline"
+                      className="font-medium text-brand-dark hover:underline dark:text-brand"
                     >
                       {c.member?.name ?? "Member"}
                     </Link>

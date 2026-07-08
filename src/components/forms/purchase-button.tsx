@@ -20,7 +20,7 @@ export function PurchaseButton({
 
   if (alreadyOwned) {
     return (
-      <span className="text-sm font-medium text-green-700">Purchased</span>
+      <span className="text-sm font-medium text-green-700 dark:text-green-400">Purchased</span>
     );
   }
 
@@ -34,7 +34,7 @@ export function PurchaseButton({
         <p className="text-xs text-red-600">{state.error}</p>
       ) : null}
       {state.success ? (
-        <p className="text-xs text-green-700">{state.success}</p>
+        <p className="text-xs text-green-700 dark:text-green-400">{state.success}</p>
       ) : null}
     </form>
   );

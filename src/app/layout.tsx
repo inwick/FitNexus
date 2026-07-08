@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,11 +12,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "FitNexus - Connect with fitness coaches",
+  title: {
+    default: "FitNexus — Train harder. Coach smarter.",
+    template: "%s · FitNexus",
+  },
   description:
-    "FitNexus connects members with fitness coaches and helps coaches manage their clients.",
+    "FitNexus is the fitness coaching marketplace. Members find expert coaches and track every rep; coaches manage clients, build plans, and grow their business.",
+  keywords: [
+    "fitness coaching",
+    "personal trainer marketplace",
+    "workout tracking",
+    "online coaching",
+    "fitness SaaS",
+  ],
 };
+
+// Applies the saved/system theme before paint to avoid a flash of the wrong theme.
+const themeScript = `(function(){try{var t=localStorage.getItem('fitnexus-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -26,8 +45,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );

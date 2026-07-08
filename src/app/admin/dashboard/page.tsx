@@ -60,14 +60,14 @@ export default async function AdminDashboard() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Members" value={memberCount} index={0} />
-        <StatCard label="Coaches" value={coachCount} index={1} />
-        <StatCard label="Active subscriptions" value={activeSubs} index={2} />
+        <StatCard label="Members" value={memberCount} tier="volt" />
+        <StatCard label="Coaches" value={coachCount} tier="violet" />
+        <StatCard label="Active subscriptions" value={activeSubs} tier="cyan" />
         <StatCard
           label="Total revenue"
           value={formatCurrency(totalRevenue)}
           hint={`${formatCurrency(subRevenue)} subs + ${formatCurrency(packageRevenue)} packages`}
-          index={3}
+          tier="flare"
         />
       </div>
 
@@ -142,13 +142,13 @@ export default async function AdminDashboard() {
           <Badge color="indigo">{formatCurrency(totalRevenue)} total</Badge>
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg bg-slate-50 p-4">
+          <div className="rounded-xl border border-border bg-foreground/[0.03] p-4">
             <p className="text-sm text-muted">Coach subscriptions</p>
-            <p className="text-xl font-bold">{formatCurrency(subRevenue)}</p>
+            <p className="font-display text-xl font-bold">{formatCurrency(subRevenue)}</p>
           </div>
-          <div className="rounded-lg bg-slate-50 p-4">
+          <div className="rounded-xl border border-border bg-foreground/[0.03] p-4">
             <p className="text-sm text-muted">Package sales</p>
-            <p className="text-xl font-bold">{formatCurrency(packageRevenue)}</p>
+            <p className="font-display text-xl font-bold">{formatCurrency(packageRevenue)}</p>
           </div>
         </div>
       </Card>

@@ -96,7 +96,7 @@ function CreatePackageForm() {
           <p className="text-sm text-red-600">{state.error}</p>
         ) : null}
         {state.success ? (
-          <p className="text-sm text-green-700">{state.success}</p>
+          <p className="text-sm text-green-700 dark:text-green-400">{state.success}</p>
         ) : null}
         <Button type="submit" disabled={pending}>
           {pending ? "Creating..." : "Create package"}
